@@ -3,6 +3,8 @@ import { durationCalculator } from '../utils/helperFunctions.js';
 export const setTime = async (req, res, next) => {
     var startTime = "";
     var endTime = "";
+    let startDate="";
+    let endDate="";
     if (req.body.dueDate.startDate) {
         startTime = new Date(req.body.dueDate.startDate.slice(0, -1)).toLocaleTimeString();
     }
