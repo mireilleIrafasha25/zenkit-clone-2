@@ -4,9 +4,10 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import configurations from "./configs/index.js";
-import taskRouter from "./routes/task.routes.js";
+import allTask from "./routes/index.js";
+import documentation from "../doc/openai.json" assert {type:"json"}
+import swaggerUi from "swagger-ui-express";
 import ErrorHandler from "./middlewares/ErrorHandler.js";
-
 const corsOptions = {
     allowedHeaders: ["Authorization","Content-Type"],
     methods: ["GET", "POST", "UPDATE" ],
@@ -16,9 +17,11 @@ const corsOptions = {
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use('/task', taskRouter);
+app.use('/api_doc',swaggerUi.serve);
+app.use('/api_doc',swaggerUi.setup(documentation));
+app.use('/api/v1', allTask);
 
-mongoose.connect("mongodb://localhost:27017/zenkit")
+mongoose.connect("mongodb+srv://mireilleirafasha:Mugisha12345@cluster0.4bfpmyu.mongodb.net/zenkit")
 .then(() => {
     console.log("Connected to MongoDB");
 })
