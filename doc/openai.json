@@ -23,7 +23,7 @@
             "description":"Local server"
         },
         {
-            "url":"https://zenkit-clone.onrender.com",
+            "url":"https://zenkit-clone-2.onrender.com",
             "description":"production server"
         }
     ],
@@ -46,9 +46,7 @@
             "name":"body",
             "in":"body",
             "required":true,
-            "schema":{
-                "$ref":"#/component/schemas/Tasks"
-            }
+            "schema":{"$ref":"#/component/schemas/Tasks"}
         }
     ],
     "requestBody":{
@@ -120,7 +118,7 @@
         }
     }
 },
-"/tasks/update":
+"/tasks/update/{id}":
 {
     "put":
     {
@@ -148,6 +146,102 @@
             }
         }
     }
+},
+"/tasks/findById/{id}":{
+    "get":
+    {
+        "tags":["Tasks"],
+        "summary":"Get a task by id",
+        "description":"Returns a task with the provided id",
+        "parameters":[
+            {
+                "name":"id",
+                "in":"path",
+                "required":true,
+                "schema":{
+                    "type":"string"
+                }
+            }
+        ],
+        "responses":{
+            "200":
+            {
+                "description":"Task found",
+                "content":{
+                    "application/json":
+                    {
+                        "schema":{
+                            "$ref":"#/component/schemas/Tasks"
+                        }
+                    }
+                }
+            },
+            "404":
+            {
+                "description":"Task not found",
+                "content":{
+                    "application/json":{
+                        "schema":{
+                            "type": "object",
+                            "properties":{
+                                "message":{
+                                    "type":"string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+},
+"/tasks/delete/{id}":{
+    "delete":
+    {
+        "tags":["Tasks"],
+        "summary":"Delete a task",
+        "description":"Deletes a task with the provided id",
+        "parameters":[
+            {
+                "name":"id",
+                "in":"path",
+                "required":true,
+                "schema":{
+                    "type":"string"
+                }
+            }
+        ],
+        "responses":{
+            "200":
+            {
+                "description":"Task deleted",
+                "content":{
+                    "application/json":
+                    {
+                        "schema":{
+                            "$ref":"#/component/schemas/Tasks"
+                        }
+                    }
+                }
+            },
+            "404":
+            {
+                "description":"Task not found",
+                "content":{
+                    "application/json":{
+                        "schema":{
+                            "type": "object",
+                            "properties":{
+                                "message":{
+                                    "type":"string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
     },
     "component":
@@ -158,8 +252,7 @@
         "type":"object",
         "properties":
         {
-           
-            "name":
+           "name":
             {
                 "type":"string",
                 "description":"Name of the task",
@@ -218,6 +311,7 @@
             }
         }
     }
-    }
+    },
+    "required": ["name","description","status","dueDate.startDate","dueDate.endDate"]
     }
 }

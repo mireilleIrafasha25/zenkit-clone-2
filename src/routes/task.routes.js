@@ -7,8 +7,8 @@ import { setTime } from '../middlewares/time.js';
 taskRouter.get('/test', test);
 taskRouter.post('/add', setTime, addTaskValidation, addTask);
 taskRouter.get('/list', getTasks);
-taskRouter.put('/update', updateTask);
-taskRouter.get('/findById', findById);
-taskRouter.delete('/delete', deleteTask);
+taskRouter.put('/update/:id', updateTask);
+taskRouter.get('/findById/:id', findById);
+taskRouter.delete('/delete/:id', deleteTask);
 
 export default taskRouter;
