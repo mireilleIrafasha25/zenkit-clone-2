@@ -31,6 +31,5 @@ export const durationCalculator = (startDate, endDate) => {
       duration.durationPeriod = numberOfHours/24;
       duration.durationType = "Days"
     }
-  
-    return duration;
+  return duration;
   };

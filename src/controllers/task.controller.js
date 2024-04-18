@@ -24,7 +24,9 @@ export const getTasks = async (req, res, next) => {
     try {
         const tasks = await TaskModel.find({});
         if (tasks) {
-            return res.status(200).json(tasks);
+            return res.status(200).json({
+                size:tasks.length,
+                tasks});
         }
     } catch (error) {
         next(error);
@@ -59,11 +61,26 @@ export const findById = async (req, res, next) => {
         next(error);
     }
 }
+export const findByStatus = async (req, res, next) => {
+    const status = req.params.status;
+    
+    try {
+        const foundTasks = await TaskModel.find(status);
+    
+        return res.status(200).json({
+            size:foundTasks.length,
+            foundTasks});
+    } catch (error) {
+        next(error);
+    }
+}
 
 export const deleteTask = async (req, res, next) => {
     try {
         const deletedTask = await TaskModel.findByIdAndDelete(req.params.id);
-        return res.status(200).json({ message: 'Task deleted'});
+        return res.status(200).json({ 
+        task:deletedTask,
+            message: 'Task deleted'});
     } catch (error) {
         next(error);
     }
