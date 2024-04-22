@@ -8,10 +8,10 @@ export const addTag = async (req, res, next) => {
         if (!errors.isEmpty()) {
             next(new BadRequestError(errors.array()[0].msg));
         }
-
         const newTag = await TagModel.create(req.body);
         return res.status(201).json(newTag);
-    } catch (error) {
+    }
+     catch (error) {
         next(error);
     }
 };
@@ -34,11 +34,11 @@ export const updateTag = async (req, res, next) => {
     const updates = req.body;
 
     try {
-        const updatedTask = await TagModel.findByIdAndUpdate(id, updates, { new: true });
-        if (!updatedTask) {
+        const updatedTags = await TagModel.findByIdAndUpdate(id, updates, { new: true });
+        if (!updatedTags) {
             return next(new NotFoundError(`Task not found`));
         } 
-        return res.status(200).json(updatedTask);
+        return res.status(200).json(updatedTags);
     } catch (error) {
         next(error);
     }

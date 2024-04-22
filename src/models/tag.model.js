@@ -3,6 +3,7 @@ import { model, Schema } from "mongoose";
 const TagSchema = new Schema({
     name: {
         type: String,
+        enum: ['LOW', 'MEDIUM', 'HIGH', 'VERY HIGH'],
         required: true,
     },
     color: {

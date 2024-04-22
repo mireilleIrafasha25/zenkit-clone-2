@@ -242,6 +242,55 @@
             }
         }
     }
+},
+"/findByStatus/{status}":
+{
+    "get":
+    {
+        "tags":["Tasks"],
+        "summary":"Get a task by status",
+        "description":"Returns a task with the provided status",
+        "parameters":[
+            {
+                "name":"status",
+                "in":"path",
+                "required":true,
+                "schema":{
+                    "type":"string"
+                }
+            }
+        ],
+        "responses":{
+            "200":
+            {
+                "description":"Task found",
+                "content":{
+                    "application/json":
+                    {
+                        "schema":{
+                            "$ref":"#/component/schemas/Tasks"
+                        }
+                    }
+                }
+            },
+            "404":
+            {
+                "description":"Task not found",
+                "content":{
+                    "application/json":{
+                        "schema":{
+                            "type": "object",
+                            "properties":{
+                                "message":{
+                                    "type":"string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
     },
     "component":
@@ -286,6 +335,7 @@
                         "format":"date",
                         "description":"End date of the duedate"
                     },
+        
                     "startTime":{
                         "type":"string",
                         "format":"date",
@@ -306,8 +356,25 @@
                         "enum":["Minute","Hour","Days","Week","Months"],
                         "description":"Type of duration(Minutes,Hours,Days,etc)"
                     }
-                
+                 }
+            },
+            "checklist":{
+                "type":"object",
+                "properties":{
+                    "description":{
+                        "type":"string",
+                        "description":"Description of the checklist item"
+                    },
+                    "completed":{
+                        "type": "boolean",
+                        "description":"Status of the checklist item"
+                    }
                 }
+            },
+            "workload":
+            {
+                "type":"number",
+                "description":"Description of workload of the task"
             }
         }
     }

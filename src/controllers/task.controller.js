@@ -62,17 +62,56 @@ export const findById = async (req, res, next) => {
     }
 }
 export const findByStatus = async (req, res, next) => {
-    const status = req.params.status;
+    const Taskstatus = req.params.id;
     
     try {
-        const foundTasks = await TaskModel.find(status);
+        const foundTask = await TaskModel.findOne(Taskstatus);
+        if (!foundTask) {
+            return next(new NotFoundError(`Task not found`));
+        }
+        return res.status(200).json(foundTask);
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+}
+
+export const findByParentId = async (req, res, next) => {
+    const Parentid = req.query.parentTask;
     
+    try {
+        const foundTask = await TaskModel.find({parentTask:Parentid});
+        if (!foundTask) {
+            return next(new NotFoundError(`Task not found`));
+        }
         return res.status(200).json({
-            size:foundTasks.length,
-            foundTasks});
+            size:foundTask.length,
+            foundTask});
     } catch (error) {
         next(error);
     }
+}
+export const FindByTags =async (req,res,next)=>
+{
+    const TagId = req.query.tags
+    try{
+        const allTasks= await TaskModel.find({})
+        const foundTask=[];
+        allTasks.forEach(task=>{
+            if(task.tags.includes(TagId))
+            foundTask.push(task);
+
+        });
+        return res.status(200).json({
+            size:foundTask.length,
+            tasks:foundTask
+        })
+    }
+    catch(error)
+    {
+        next(error);
+    }
+
 }
 
 export const deleteTask = async (req, res, next) => {

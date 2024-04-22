@@ -4,6 +4,7 @@ const TaskSchema = new Schema({
     name: {
         type: String,
         required: true,
+        unique: true
     },
     description: {
         type: String,
@@ -18,6 +19,33 @@ const TaskSchema = new Schema({
         },
         default: "Todo",
     },
+    parentTask:{
+        type: Schema.Types.ObjectId,
+        ref: "Task",
+        required: false,
+    },
+    tags:{
+        type: Array,
+        required: false,
+    },
+
+    checklist:
+    {
+        description: {
+            type: String,
+            required: false
+          },
+          completed: {
+            type: Boolean,
+            default: false
+          }
+    },
+    workload: {
+        type: Number,
+        min: 0,
+        max: 5,
+        default: 3
+      },
     dueDate: {
         startDate: {
             type: Date,
