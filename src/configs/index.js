@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const Configs = {
-    MONGODB_CONNECTION_STRING: process.env.MONGODB_CONNECTION_STRING,
+    MONGODB_CONNECTION_STRING: process.env.MONGODB_CONNECTION_STRING || "mongodb+srv://mireilleirafasha:Mugisha12345@cluster0.4bfpmyu.mongodb.net/zenkit",
     CLIENT_APP: process.env.CLIENT_APP || 'http://localhost:4000',
     PORT: process.env.PORT || 4000 ,
     JWT_SECRET_KEY: process.env.JWT_SECRET_KEY,

@@ -21,7 +21,7 @@ app.use('/api_doc',swaggerUi.serve);
 app.use('/api_doc',swaggerUi.setup(documentation));
 app.use('/api/v1', allTask);
 
-mongoose.connect("mongodb+srv://mireilleirafasha:Mugisha12345@cluster0.4bfpmyu.mongodb.net/zenkit")
+mongoose.connect(configurations.MONGODB_CONNECTION_STRING)
 .then(() => {
     console.log("Connected to MongoDB");
 })
